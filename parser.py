@@ -6,23 +6,23 @@ class Parser:
     def __init__(self, lexer):
         self.lexer = lexer
 
-        self.curToken = None 
+        self.curToken = None
         self.peekToken = None
         self.nextToken()
         self.nextToken()    # Call twice to initialize current and peek.
 
     # Return true if the current token matches.
     def checkToken(self, kind):
-        return kind == self.curToken.kind
+        return kind == self.curToken.kind # type: ignore
 
     # Return true if the next token matches.
     def checkPeek(self, kind):
-        return kind == self.peekToken.kind
+        return kind == self.peekToken.kind # type: ignore
 
     # Try to match current token. If not, error. Advances the current token.
     def match(self, kind):
         if not self.checkToken(kind):
-            self.abort("Expected " + kind.name + ", got " + self.curToken.kind.name)
+            self.abort("Expected " + kind.name + ", got " + self.curToken.kind.name) # type: ignore
         self.nextToken()
 
     # Advances the current token.
@@ -33,7 +33,6 @@ class Parser:
 
     def abort(self, message):
         sys.exit("Error. " + message)
-
 
     # Production rules.
 
@@ -75,7 +74,7 @@ class Parser:
     # nl ::= '\n'+
     def nl(self):
         print("NEWLINE")
-		
+
         # Require at least one newline.
         self.match(TokenType.NEWLINE)
         # But we will allow extra newlines too, of course.
