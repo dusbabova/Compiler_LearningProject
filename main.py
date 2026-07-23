@@ -1,8 +1,22 @@
-from lexer import Lexer
+from lexer import *
+from parser import *
 from TokenType import TokenType
-
+import sys
 
 def main():
+	print("Teeny Tiny Compiler")
+	if len(sys.argv) != 2:
+		sys.exit("Error: Compiler needs source file as argument.")
+	with open(sys.argv[1], 'r') as inputFile:
+		source = inputFile.read()
+
+    # Initialize the lexer and parser.
+	lexer = Lexer(source)
+	parser = Parser(lexer)
+
+	parser.program() # Start the parser.
+	print("Parsing completed.")
+
 	#ops tokenisation test
 	"""source = "+- */ >>= = !="
 	lexer = Lexer(source)
@@ -30,13 +44,13 @@ def main():
 		token = lexer.getToken()"""
 	
 	#keywords test
-	source = "IF+-123 foo*THEN/" 
+	"""source = "IF+-123 foo*THEN/" 
 	lexer = Lexer(source)
 
 	token = lexer.getToken()
 	while token.kind != TokenType.EOF:
 		print(token.kind)
-		token = lexer.getToken()
+		token = lexer.getToken()"""
 	
     #lexer.peek + lexer.nextChar test
 	"""source = "LET foobar = 123" 
