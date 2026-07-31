@@ -73,6 +73,7 @@ class Parser:
             # Zero or more statements in the body.
             while not self.checkToken(TokenType.ENDIF):
                 self.statement()
+            self.match(TokenType.ENDIF)
 
         # "WHILE" comparison "REPEAT" {statement} "ENDWHILE"       
         elif self.checkToken(TokenType.WHILE):
