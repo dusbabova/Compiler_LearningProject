@@ -1,5 +1,6 @@
 from lexer import *
 from parser import *
+from emitter import *
 from TokenType import TokenType
 import sys
 
@@ -13,9 +14,11 @@ def main():
     # Initialize the lexer and parser.
 	lexer = Lexer(source)
 	parser = Parser(lexer)
+	emitter = Emitter("out.c")
 
 	parser.program() # Start the parser.
 	print("Parsing completed.")
-
+	emitter.writeFile() # Write the output to file.
+	print("Compiling completed.")
 
 main()
