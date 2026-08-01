@@ -6,7 +6,7 @@ class Parser:
     def __init__(self, lexer, emitter):
         self.lexer = lexer
         self.emitter = emitter
-    
+
         self.symbols = set()    # Variables declared so far.
         self.labelsDeclared = set() # Labels declared so far.
         self.labelsGotoed = set() # Labels goto'ed so far.
@@ -42,7 +42,8 @@ class Parser:
     # Production rules.
     # program ::= {statement}
     def program(self):
-        print("PROGRAM")
+        self.emitter.headerLine("#include <stdio.h>")
+        self.emitter.headerLine("int main(void){")
 
         # Since some newlines are required in our grammar, need to skip the excess.
         while self.checkToken(TokenType.NEWLINE):
@@ -51,6 +52,9 @@ class Parser:
         # Parse all the statements in the program.
         while not self.checkToken(TokenType.EOF):
             self.statement()
+
+        self.emitter.emitLine("return 0;")
+        self.emitter.emitLine("}")
 
         # Check that each label referenced in a GOTO is declared.
         for label in self.labelsGotoed:
