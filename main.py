@@ -13,8 +13,9 @@ def main():
 
     # Initialize the lexer and parser.
 	lexer = Lexer(source)
-	parser = Parser(lexer)
 	emitter = Emitter("out.c")
+	parser = Parser(lexer, emitter)
+	
 
 	parser.program() # Start the parser.
 	print("Parsing completed.")
